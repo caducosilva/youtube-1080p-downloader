@@ -1,38 +1,35 @@
-# Baixador de videos do YouTube em 1920x1080
+# Baixador de videos do YouTube
 
-Aplicativo local com interface web para baixar videos do YouTube sempre em
-MP4 e exatamente na resolucao 1920x1080. Feito com Next.js, React e
-TypeScript.
+Aplicativo local com interface web para baixar videos e audios do YouTube.
+Feito com Next.js, React e TypeScript.
 
-## Como funciona
+## O que ele faz
 
 1. Voce roda o app na sua maquina e ele abre sozinho no Google Chrome.
-2. Cola o link do video.
-3. O app confere se o link e valido e mostra a miniatura e o titulo.
-4. Voce clica em Baixar.
-5. O download comeca em segundo plano, com uma barra de progresso, e voce
-   continua podendo usar a interface normalmente.
-6. O video final fica salvo na pasta `videos baixados`, dentro da pasta do
-   projeto.
+2. Cola o link de um video ou de uma playlist publica.
+3. O app confere o link e mostra o titulo (e a lista, se for playlist).
+4. Voce escolhe:
+   - Video (MP4) ou so o audio (MP3)
+   - Qualidade: 1080p ou 2160p (4K), so no modo video
+   - Frames: 30 fps ou 60 fps, so no modo video
+5. Se for playlist (ou um video dentro de uma playlist), marca todos ou so alguns.
+6. Clica em Baixar.
+7. Os arquivos ficam na pasta `videos baixados`, dentro da pasta do programa.
+   Playlists criam uma subpasta com o nome da playlist.
 
-Nao existe opcao de escolher qualidade ou resolucao. O comportamento e
-sempre o mesmo, de proposito:
+Padrao: MP4 em 1080p e 60 fps.
 
-- Se o video original tiver resolucao acima de 1920x1080, o app baixa no
-  maximo ate 1080p e ajusta para exatamente 1920x1080.
-- Se o video original tiver resolucao abaixo de 1920x1080, o app baixa na
-  melhor qualidade disponivel e depois converte para exatamente 1920x1080,
-  mantendo a proporcao original e completando com faixas pretas quando
-  necessario, sem distorcer a imagem.
-- Se voce baixar de novo um video com o mesmo titulo, o arquivo novo
-  substitui o antigo na pasta `videos baixados`.
+No modo video, o resultado final e forçado para a resolucao escolhida
+(1920x1080 ou 3840x2160), mantendo a proporcao e completando com faixas
+pretas se precisar, sem distorcer a imagem. O FPS tambem e ajustado para
+30 ou 60.
 
 ## Pre requisitos
 
 - [Node.js](https://nodejs.org/) 20 ou mais recente.
 - [yt-dlp](https://github.com/yt-dlp/yt-dlp) instalado e disponivel no PATH.
 - [FFmpeg](https://ffmpeg.org/) instalado e disponivel no PATH (inclui o
-  `ffprobe`, usado para checar a resolucao do video baixado).
+  `ffprobe`).
 - [Deno](https://deno.com/) instalado e disponivel no PATH, usado pelo
   yt-dlp para resolver desafios do YouTube.
 - Google Chrome instalado (a interface abre nele automaticamente).
@@ -41,18 +38,16 @@ sempre o mesmo, de proposito:
 
 ## Sobre bloqueios do YouTube
 
-O YouTube as vezes responde com uma mensagem pedindo para confirmar que
-quem esta baixando nao e um robo. Para reduzir isso, o app sobe sozinho,
-na primeira execucao, uma copia local do projeto
+O YouTube as vezes pede para confirmar que quem esta baixando nao e um
+robo. Para reduzir isso, o app sobe sozinho, na primeira execucao, uma
+copia local do projeto
 [bgutil-ytdlp-pot-provider](https://github.com/Brainicism/bgutil-ytdlp-pot-provider),
-que gera o token de origem que o yt-dlp usa para se autenticar. Isso e
-feito automaticamente pelo script de inicializacao, sem precisar de conta
-do YouTube.
+que gera o token usado pelo yt-dlp. Isso e feito pelo script de
+inicializacao, sem precisar de conta do YouTube.
 
-Se mesmo assim o download continuar sendo bloqueado, uma opcao extra e
-apontar o app para um perfil do Firefox que ja visitou o youtube.com uma
-vez. Copie o arquivo `.env.example` para `.env.local` e preencha a
-variavel `FIREFOX_PROFILE_PATH` com o caminho desse perfil.
+Se mesmo assim o download continuar bloqueado, copie `.env.example` para
+`.env.local` e preencha `FIREFOX_PROFILE_PATH` com o caminho de um perfil
+do Firefox que ja visitou o youtube.com.
 
 ## Instalacao
 
@@ -67,8 +62,8 @@ npm run app
 ```
 
 Esse comando prepara o servidor de PO token na primeira vez, builda a
-interface se necessario, sobe tudo localmente e abre o Chrome sozinho. No
-Windows tambem da para clicar duas vezes em `start.bat`.
+interface se necessario, sobe tudo localmente e abre o Chrome. No Windows
+tambem da para clicar duas vezes em `start.bat`.
 
 Para desenvolvimento com recarregamento automatico:
 
@@ -81,11 +76,11 @@ npm run dev
 ```
 app/
   page.tsx                interface principal
-  api/metadata/route.ts   checa o link e devolve titulo e miniatura
+  api/metadata/route.ts   confere o link (video ou playlist)
   api/download/route.ts   inicia o download e transmite o progresso
 lib/
   ytdlp.ts                chamadas ao yt-dlp, ffmpeg e ffprobe
-  paths.ts                pastas de saida e sanitizacao de nomes de arquivo
+  paths.ts                pastas de saida e sanitizacao de nomes
 scripts/
   setup-pot-server.mjs    prepara o servidor de PO token
   launch.mjs              sobe tudo e abre o Chrome
@@ -94,8 +89,8 @@ scripts/
 ## Uso responsavel
 
 Baixe apenas videos que voce tem direito de baixar, como conteudo proprio,
-material com licenca aberta ou uso permitido pelos termos do video. Respeite
-os direitos autorais de terceiros.
+material com licenca aberta ou uso permitido pelos termos do video.
+Respeite os direitos autorais de terceiros.
 
 ## Licenca
 
