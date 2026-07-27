@@ -206,9 +206,10 @@ export async function downloadAndConvert(
     // Fora de 1920x1080 (maior ou menor): reescala mantendo a proporcao
     // original e completa com faixas pretas ate fechar exatamente
     // 1920x1080, sem distorcer a imagem.
+    // String unica (sem concatenacao) para o bundler do Next nao perder a
+    // virgula entre os filtros scale e pad no build de producao.
     const scaleFilter =
-      `scale=${TARGET_WIDTH}:${TARGET_HEIGHT}:force_original_aspect_ratio=decrease,` +
-      `pad=${TARGET_WIDTH}:${TARGET_HEIGHT}:(ow-iw)/2:(oh-ih)/2:color=black`;
+      "scale=1920:1080:force_original_aspect_ratio=decrease,pad=1920:1080:(ow-iw)/2:(oh-ih)/2:color=black";
     await runProcess(FFMPEG_BIN, [
       "-y",
       "-i",
