@@ -120,4 +120,16 @@ Distribuido sob a licenca **MIT**. Veja o arquivo [LICENSE](./LICENSE).
 
 Contato: abobicarlo@gmail.com
 
-Doacoes via PIX (chave aleatoria): `f74458dc-2a36-49bd-9250-1cef4365ebb8`
+### Doacoes via PIX
+
+Chave aleatoria:
+
+```
+f74458dc-2a36-49bd-9250-1cef4365ebb8
+```
+
+<p align="center">
+  <img src="docs/pix-qrcode.png" alt="QR Code PIX caducosilva" width="220" />
+</p>
+
+<p align="center"><em>Escaneie com o app do seu banco</em></p>

@@ -572,9 +572,21 @@ export default function Home() {
             </div>
           )}
 
-          <p className="text-center text-xs text-[var(--muted)]">
-            Doacoes via PIX: f74458dc-2a36-49bd-9250-1cef4365ebb8
-          </p>
+          <div className="mx-auto max-w-xs space-y-3 rounded-xl border border-[var(--line)] bg-white p-4 text-center">
+            <p className="text-sm font-semibold">Doacoes via PIX</p>
+            <p className="text-xs text-[var(--muted)]">
+              Escaneie o QR Code ou copie a chave aleatoria
+            </p>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/pix-qrcode.png"
+              alt="QR Code PIX da chave aleatoria caducosilva"
+              className="mx-auto h-44 w-44 rounded-lg border border-[var(--line)] bg-white p-2"
+            />
+            <code className="block break-all rounded-lg bg-[#f4f7fb] px-2 py-2 text-[11px] text-[var(--foreground)]">
+              f74458dc-2a36-49bd-9250-1cef4365ebb8
+            </code>
+          </div>
         </div>
       </main>
     </>
