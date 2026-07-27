@@ -12,15 +12,7 @@ export async function GET(request: NextRequest) {
 
   try {
     const meta = await fetchMetadata(url);
-    return Response.json({
-      valid: true,
-      id: meta.id,
-      title: meta.title,
-      thumbnail: meta.thumbnail,
-      durationSeconds: meta.durationSeconds,
-      width: meta.width,
-      height: meta.height,
-    });
+    return Response.json({ valid: true, ...meta });
   } catch (err) {
     return Response.json({
       valid: false,

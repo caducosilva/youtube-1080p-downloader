@@ -1,21 +1,10 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
-
 export const metadata: Metadata = {
-  title: "Baixador de videos do YouTube em 1920x1080",
+  title: "Baixador de videos do YouTube",
   description:
-    "Cola o link, confere o video e baixa em MP4 exatamente em 1920x1080.",
+    "Cole o link de um video ou playlist, escolha MP4 ou MP3 e baixe com qualidade e FPS definidos.",
 };
 
 export default function RootLayout({
@@ -24,11 +13,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="pt-BR"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
-    >
-      <body className="min-h-full flex flex-col">{children}</body>
+    <html lang="pt-BR" className="h-full antialiased">
+      <body className="min-h-full flex flex-col app-shell">{children}</body>
     </html>
   );
 }

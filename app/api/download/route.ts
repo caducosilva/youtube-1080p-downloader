@@ -1,10 +1,20 @@
 import { NextRequest } from "next/server";
-import { downloadAndConvert, isValidYouTubeUrl } from "@/lib/ytdlp";
+import {
+  downloadAndConvert,
+  isValidYouTubeUrl,
+  parseDownloadOptions,
+} from "@/lib/ytdlp";
 
 export const dynamic = "force-dynamic";
 
 export async function GET(request: NextRequest) {
   const url = request.nextUrl.searchParams.get("url")?.trim() ?? "";
+  const options = parseDownloadOptions({
+    media: request.nextUrl.searchParams.get("media"),
+    height: request.nextUrl.searchParams.get("height"),
+    fps: request.nextUrl.searchParams.get("fps"),
+    ids: request.nextUrl.searchParams.get("ids"),
+  });
 
   if (!isValidYouTubeUrl(url)) {
     return Response.json({ error: "Link do YouTube invalido." }, { status: 400 });
@@ -23,10 +33,15 @@ export async function GET(request: NextRequest) {
       };
 
       try {
-        const result = await downloadAndConvert(url, (progress) => {
+        const result = await downloadAndConvert(url, options, (progress) => {
           send("progress", progress);
         });
-        send("done", { title: result.title, path: result.finalPath });
+        send("done", {
+          titles: result.titles,
+          paths: result.finalPaths,
+          outputFolder: result.outputFolder,
+          count: result.titles.length,
+        });
       } catch (err) {
         send("error", {
           message: err instanceof Error ? err.message : "Falha no download.",
