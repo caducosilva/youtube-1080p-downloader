@@ -47,3 +47,8 @@ next-env.d.ts
 /videos baixados/
 /.tmp-downloads/
 
+# prints locais / rascunhos (nao versionar)
+/prints-baixador-linkedin/
+*.local.png
+scripts/_shot.mjs
+
