@@ -1,0 +1,6 @@
+{
+  "name": "Baixador 1080p",
+  "description": "Frontend limpo e moderno para o baixador de vídeos em 1080p integrando com a API local Python (yt-dlp + ffmpeg).",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
